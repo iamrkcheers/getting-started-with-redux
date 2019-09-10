@@ -12,6 +12,7 @@ const counter = (prevState = 0, action) => {
 	}
 }
 
+// tests
 expect(
 	counter(0, {type: 'INCREMENT'})
 ).toEqual(1);
