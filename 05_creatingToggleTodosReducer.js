@@ -1,4 +1,4 @@
-import expect, { toEquals } from 'expect';
+import expect, { toEqual } from 'expect';
 import deepFreeze from 'deep-freeze';
 
 const todos = (prevState = 0, action) => {
@@ -13,13 +13,13 @@ const todos = (prevState = 0, action) => {
 				}
 			];
 		case 'TOGGLE_TODOS':
-			prevState.map(todo => {
+			return prevState.map(todo => {
 				if (todo.id !== action.id)
 					return todo;
 				else
 					return {
 						...todo,
-						todo.completed = !todo.completed
+						completed: !todo.completed
 					}
 			});
 		default:
@@ -28,7 +28,7 @@ const todos = (prevState = 0, action) => {
 }
 
 const testAddTodo = () => {
-	const stateBefore = [],
+	const stateBefore = [];
 	const action = {
 		id: 0,
 		type: 'ADD_TODOS',
@@ -43,7 +43,7 @@ const testAddTodo = () => {
 	deepFreeze(stateBefore);
 	deepFreeze(action);
 
-	expect(todos(stateBefore, action)).toEquals(stateAfter);
+	expect(todos(stateBefore, action)).toEqual(stateAfter);
 }
 
 const testToggleTodo = () => {
@@ -58,7 +58,7 @@ const testToggleTodo = () => {
 			text: 'Do something, please !',
 			completed: false
 		}
-	],
+	];
 	const action = {
 		id: 1,
 		type: 'TOGGLE_TODOS'
@@ -79,7 +79,7 @@ const testToggleTodo = () => {
 	deepFreeze(stateBefore);
 	deepFreeze(action);
 
-	expect(todos(stateBefore, action)).toEquals(stateAfter);
+	expect(todos(stateBefore, action)).toEqual(stateAfter);
 }
 
 testAddTodo();
